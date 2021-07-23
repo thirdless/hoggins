@@ -12,3 +12,4 @@ Options +MultiViews
 </filesMatch>
 
 ErrorDocument 404 "\0"
+ErrorDocument 403 "\0"
