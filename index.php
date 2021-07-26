@@ -17,7 +17,13 @@
                     Hoggins
                 </div>
                 <div class="bar">
-                    <input type="text" name="search"/>
+                    <input type="text" name="search" autocomplete="off" spellcheck="false"/>
+                </div>
+                <div class="bookmarks">
+                    <a class="link" href="https://google.com"><img src="/api/favicon.php?url=https://google.com">Google</a>
+                    <a class="link" href="https://google.com"><img src="/api/favicon.php?url=https://google.com">Google</a>
+                    <a class="link" href="https://facebook.com"><img src="/api/favicon.php?url=https://facebook.com">Facebook</a>
+                    <a class="link" href="https://music.youtube.com"><img src="/api/favicon.php?url=https://youtube.com">YouTube Music</a>
                 </div>
             </div>
         </div>

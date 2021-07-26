@@ -17,6 +17,7 @@ input:focus {
 body {
     font-family: 'Montserrat', sans-serif;
     background: var(--white-color);
+    cursor: default;
 }
 
 body>.background{
@@ -41,7 +42,7 @@ body>.background::before{
 }
 
 .main {
-    height: 80vh;
+    height: 70vh;
 }
 
 .main .group {
@@ -57,7 +58,7 @@ body>.background::before{
     font-weight: bold;
     font-size: 2.5em;
     margin-bottom: 1em;
-    color: var(--white-color);
+    color: #fff;
     text-shadow: 0 0 1em rgba(0, 0, 0);
 }
 
@@ -103,8 +104,35 @@ body>.background::before{
     background: var(--shadow-low);
 }
 
+.main .group .bookmarks a{
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    color:inherit;
+    text-decoration: inherit;
+    font-weight: 800;
+    padding:1em;
+    background: #fff;
+    border-radius:.5em;
+    box-shadow: 0 0 1em var(--shadow-low);
+    margin:3em 1em;
+    width:6em;
+    height:3.5em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow:hidden;
+}
+
+.main .group .bookmarks a img{
+    display: block;
+    width:1.5em;
+    height:1.5em;
+    margin: 0 auto .5em;
+    pointer-events: none;
+}
+
 .tiles-list {
-    width: 80vw;
+    width: 95vw;
     margin: 0 auto;
     text-align: center;
 }
@@ -118,10 +146,11 @@ body>.background::before{
     border-radius: .5em;
     padding:1.25em;
     display: inline-block;
-    background: var(--white-color);
-    width: calc(49% - var(--tile-margin));
+    background: #fff;
+    /* width: calc(49% - var(--tile-margin)); */
     margin: calc(var(--tile-margin) / 2) var(--tile-margin) calc(var(--tile-margin) / 2) 0;
     overflow:hidden;
+    position: relative;
 }
 
 .tile-content:nth-of-child(2n + 1)  {

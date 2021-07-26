@@ -64,3 +64,138 @@
 .weather-tile .other p{
     margin:.5em 1em;
 }
+
+.reddit-tile a, .rss-tile a{
+    height: 3.5em;
+    display: block;
+    margin: .5em 0;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: inherit;
+    font-weight: 800;
+    position: relative;
+    transition: box-shadow .3s ease;
+    border-radius: .25em;
+    white-space: nowrap;
+}
+
+.reddit-tile a::before, .rss-tile a::before{
+    content:"";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    background: linear-gradient(to right, transparent, #fff);
+}
+
+.reddit-tile a:hover, .rss-tile a:hover{
+    box-shadow: 0 0 1em var(--shadow-low);
+}
+
+.reddit-tile a .thumb, .rss-tile a .thumb{
+    height: 100%;
+    width: 15%;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 1em;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(/assets/post.png);
+}
+
+.gmail-tile .auth-button{
+    cursor: pointer;
+    color: #fff;
+    font-weight: 800;
+    background: #EA4335;
+    display: inline-block;
+    padding: .75em;
+    box-shadow: 0 0 1em var(--shadow-low);
+    border-radius: .3em;
+    margin-top: 1em;
+    transition: box-shadow .3s ease;
+}
+
+.gmail-tile .auth-button:hover{
+    box-shadow: 0 0 1em rgba(0, 0, 0, .5);
+}
+
+.gmail-tile .email{
+    cursor: pointer;
+    margin: 1em 0;
+    display: block;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.gmail-tile .email svg{
+    width:1.5em;
+    height:1.5em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.gmail-tile .email.unread{
+    opacity:.5;
+}
+
+.gmail-tile .email>span{
+    display: block;
+    width: 1em;
+}
+
+.gmail-tile .email>div{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.gmail-tile .email>div:first-of-type{
+    text-align: center;
+    margin-right:1em;
+    font-size: 0.9em;
+}
+
+.gmail-tile .email>div:last-of-type{
+    width:calc(100% - 4em);
+    overflow: hidden;
+}
+
+.gmail-tile .email>div p{
+    font-weight: 800;
+}
+
+.gmail-tile .email>div p, .gmail-tile .email>div span{
+    white-space: nowrap;
+    display: block;
+    position: relative;
+}
+
+.gmail-tile .email>div p::before, .gmail-tile .email>div span::before{
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width:10%;
+    background: linear-gradient(to right, transparent, #fff);
+}
+
+.gmail-tile .compose{
+    color: #EA4335;
+    font-weight: 800;
+    text-decoration: inherit;
+    position: absolute;
+    right: 1.25em;
+    top: 1.25em;
+}
+
+.gmail-tile .compose svg{
+    width:1.5em;
+    height:1.5em;
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
+    margin:-.25em .3em 0 0;
+}

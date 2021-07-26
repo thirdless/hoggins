@@ -6,6 +6,65 @@ let searchInput,
     searchCurrentTerms,
     searchCurrentIndex = -1;
 
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function checkURL(value){
+    let url;
+
+    try{
+        url = new URL(value);
+    }
+    catch{
+        return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+}
+
+function getShortTimePassed(date){
+    date = (new Date(date)).getTime() / 1000;
+
+    let current = Date.now() / 1000,
+        difference = current - date;
+    
+    let minutes = 60,
+        hours = minutes * 60,
+        days = hours * 24,
+        months = days * 30,
+        years = days * 365;
+    
+    if(difference < 60){
+        return "1m";
+    }
+    else if(difference < hours){
+        let dif = parseInt(difference / minutes);
+        return dif + "m";
+    }
+    else if(difference < days){
+        let dif = parseInt(difference / hours);
+        return dif + "h";
+    }
+    else if(difference < months){
+        let dif = parseInt(difference / days);
+        return dif + "d";
+    }
+    else if(difference < years){
+        let dif = parseInt(difference / months);
+        return dif + "mo";
+    }
+    else{
+        let dif = parseInt(difference / years);
+        return dif + "y"; 
+    }
+}
+
 function ajax(url, method, data, accept, reject){
     let xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
@@ -76,7 +135,7 @@ function searchCreateAutocomplete(terms){
 }
 
 function searchAutocomplete(term){
-    ajax("/api/autocomplete?q=" + encodeURIComponent(term), "GET", null, (response) => {
+    ajax("/api/autocomplete?q=" + encodeURIComponent(term), "GET", null, response => {
         let terms = [];
 
         response = JSON.parse(response);
@@ -151,7 +210,7 @@ function searchBarClick(e){
 }
 
 function getBackground(){
-    ajax("/api/background.php", "GET", null, (response) => {
+    ajax("/api/background.php", "GET", null, response => {
         let element = document.querySelector("body>.background");
         element.style.backgroundImage = "url(" + response + ")";
     });
@@ -175,6 +234,11 @@ function createTile(title, logo, child, color = "#000"){
 
 function generateDefaultTiles(){
     weatherTile();
+    gmailTile();
+    rssTile("https://www.mediafax.ro/rss");
+    redditTile("worldnews");
+    redditTile("all");
+    redditTile("globaloffensive");
 }
 
 function dom(){
