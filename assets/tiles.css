@@ -124,10 +124,17 @@
 
 .gmail-tile .email{
     cursor: pointer;
-    margin: 1em 0;
+    margin: .5em 0;
     display: block;
     color: inherit;
     text-decoration: inherit;
+    padding:.25em .5em;
+    transition: box-shadow .3s ease;
+    border-radius:.3em;
+}
+
+.gmail-tile .email:hover{
+    box-shadow: 0 0 1em var(--shadow-low);
 }
 
 .gmail-tile .email svg{
