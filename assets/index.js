@@ -173,6 +173,10 @@ function createTile(title, logo, child, color = "#000"){
     list.appendChild(element);
 }
 
+function generateDefaultTiles(){
+    weatherTile();
+}
+
 function dom(){
     let searchBarElement = document.querySelector(".bar");
 
@@ -184,7 +188,7 @@ function dom(){
     searchBarElement.addEventListener("click", searchBarClick);
 
     getBackground();
-    weatherTile();
+    generateDefaultTiles();
 }
 
 document.addEventListener("DOMContentLoaded", dom);
