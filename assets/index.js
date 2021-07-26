@@ -236,6 +236,7 @@ function generateDefaultTiles(){
     weatherTile();
     gmailTile();
     rssTile("https://www.mediafax.ro/rss");
+    rssTile("http://rss.cnn.com/rss/edition.rss");
     redditTile("worldnews");
     redditTile("all");
     redditTile("globaloffensive");

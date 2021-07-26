@@ -250,8 +250,8 @@ function rssTile(url){
 
         for(let i = 0; i < items.length; i++){
             let post = document.createElement("a"),
-                postTitle = escapeHtml(items[i].querySelector("title").innerHTML),
-                image = items[i].querySelector("enclosure[type^='image']").getAttribute("url"),
+                postTitle = escapeHtml(items[i].querySelector("title").innerHTML.replace("<![CDATA[", "").replace("]]>", "")),
+                image = items[i].querySelector("enclosure[type^='image'], content[type^='image']").getAttribute("url"),
                 thumb = ` style="background-image:url(${image})"`;
 
             if(!checkURL(image))
