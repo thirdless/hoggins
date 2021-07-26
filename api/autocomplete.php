@@ -20,5 +20,5 @@ $headers = [
 ];
 
 $headers_context = stream_context_create($headers);
-$file = file_get_contents("https://www.google.com/complete/search?q=" . urlencode($search) . "&client=opera", false, $headers_context);
-echo $file;
+$results = file_get_contents("https://www.google.com/complete/search?q=" . urlencode($search) . "&client=opera", false, $headers_context);
+echo $results;
