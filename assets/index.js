@@ -239,6 +239,41 @@ function generateDefaultTiles(){
     rssTile("http://rss.cnn.com/rss/edition.rss");
     redditTile("dankmemes");
     redditTile("wallstreetbets");
+    redditTile("romania");
+    rssTile("http://feeds.bbci.co.uk/news/world/rss.xml");
+}
+
+function getTileType(param){
+    if(param === "gmail")
+        gmailTile();
+    else if(param instanceof Array){
+        let func;
+
+        switch(param[0]){
+            case "weather":
+                func = weatherTile;
+                break;
+            case "rss":
+                func = rssTile;
+                break;
+            case "reddit":
+                func = redditTile;
+                break;
+        }
+
+        if(typeof func === "function")
+            func(param[1]);
+    }
+}
+
+function getConfig(){
+    ajax("/api/config.php", "GET", null, result => {
+        result = JSON.parse(result);
+
+        for(let i = 0; i < result.length; i++){
+            getTileType(result[i]);
+        }
+    });
 }
 
 function dom(){
@@ -253,6 +288,7 @@ function dom(){
 
     getBackground();
     generateDefaultTiles();
+    getConfig();
 }
 
 document.addEventListener("DOMContentLoaded", dom);

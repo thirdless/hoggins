@@ -32,6 +32,3 @@
         <script src="/assets/tiles.js"></script>
     </body>
 </html>
-
-
-

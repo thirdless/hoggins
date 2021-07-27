@@ -189,16 +189,25 @@
     background: linear-gradient(to right, transparent, #fff);
 }
 
-.gmail-tile .compose{
-    color: #EA4335;
-    font-weight: 800;
-    text-decoration: inherit;
+.gmail-tile .gmail-buttons{
     position: absolute;
     right: 1.25em;
     top: 1.25em;
+    color: #EA4335;
 }
 
-.gmail-tile .compose svg{
+.gmail-tile .compose{
+    font-weight: 800;
+    text-decoration: inherit;
+    color: inherit;
+    margin-right:1em;
+}
+
+.gmail-tile .gmail-buttons span{
+    cursor:pointer;
+}
+
+.gmail-tile .gmail-buttons svg{
     width:1.5em;
     height:1.5em;
     display: inline-block;

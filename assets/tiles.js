@@ -55,6 +55,7 @@ function weatherTile(){
             let day = document.createElement("div"),
                 time = new Date(days[i].date),
                 averageIcon = days[i].hourly[days[i].hourly.length / 2].weatherDesc[0].value;
+
             day.innerHTML = weatherGetIcon(averageIcon) + "<div><span>" + time.getDate() + " " + time.toLocaleString("default", {month: "short"}) + "</span><p>" + days[i].mintempC + "°C / " + days[i].maxtempC + "°C</p></div>";
             daysEl.appendChild(day);
         }
@@ -140,11 +141,36 @@ function gmailGetHeader(obj, name){
     return "";
 }
 
+function gmailLogout(){
+    let token = gapi.auth.getToken();
+
+    if(token && token.access_token){
+        ajax("https://accounts.google.com/o/oauth2/revoke?token=" + token.access_token, "GET");
+    }
+
+    gapi.auth.setToken(null);
+    gapi.auth.signOut();
+    gmailDiv.innerHTML = ``;
+    handleGmailAuth({error: "immediate_failed"});
+}
+
 function gmailNewButton(address){
-    if(!gmailDiv.querySelectorAll(".compose").length)
-        gmailDiv.innerHTML += `<a class="compose" target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&authuser=${address}"><svg viewBox="0 0 24 24">
+    if(!gmailDiv.querySelectorAll(".compose").length){
+        let parent = document.createElement("div"),
+            logout = document.createElement("span");
+        
+        parent.className = "gmail-buttons";
+        logout.innerHTML = `<svg id="icon-log-out" viewBox="0 0 24 24">
+                <path d="M9 20h-4c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-14c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293h4c0.552 0 1-0.448 1-1s-0.448-1-1-1h-4c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v14c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h4c0.552 0 1-0.448 1-1s-0.448-1-1-1zM18.586 11h-9.586c-0.552 0-1 0.448-1 1s0.448 1 1 1h9.586l-3.293 3.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5-5c0.092-0.092 0.166-0.202 0.217-0.324 0.15-0.362 0.078-0.795-0.217-1.090l-5-5c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"></path>
+            </svg>`;
+        logout.addEventListener("click", gmailLogout);
+
+        parent.innerHTML = `<a class="compose" onclick="window.open(this.href, 'newwin', 'width=600, height=500'); return false;" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&authuser=${address}"><svg viewBox="0 0 24 24">
                 <path d="M12 21h9c0.552 0 1-0.448 1-1s-0.448-1-1-1h-9c-0.552 0-1 0.448-1 1s0.448 1 1 1zM15.793 2.793l-12.5 12.5c-0.122 0.121-0.217 0.28-0.263 0.465l-1 4c-0.039 0.15-0.042 0.318 0 0.485 0.134 0.536 0.677 0.862 1.213 0.728l4-1c0.167-0.041 0.33-0.129 0.465-0.263l12.5-12.5c0.609-0.609 0.914-1.41 0.914-2.207s-0.305-1.598-0.914-2.207-1.411-0.915-2.208-0.915-1.598 0.305-2.207 0.914zM17.207 4.207c0.219-0.219 0.504-0.328 0.793-0.328s0.574 0.109 0.793 0.328 0.328 0.504 0.328 0.793-0.109 0.574-0.328 0.793l-12.304 12.304-2.115 0.529 0.529-2.115z"></path>
-            </svg> Create new email</a>`;
+            </svg></a>`;
+        parent.appendChild(logout);
+        gmailDiv.appendChild(parent);
+    }
 }
 
 function gmailFetchEmail(message){
@@ -195,9 +221,14 @@ function gmailDisplayInbox(){
 
 function handleGmailAuth(auth){
     if(auth && !auth.error){
+        let button = gmailDiv.querySelector(".auth-button");
+        
+        if(button)
+            gmailDiv.removeChild(button);
+        
         gapi.client.load("gmail", "v1", gmailDisplayInbox);
     }
-    else{
+    else if(auth.error === "immediate_failed"){
         let button = document.createElement("div");
         button.className = "auth-button";
         button.innerText = "Login with Google";
@@ -257,8 +288,16 @@ function rssTile(url){
         for(let i = 0; i < items.length; i++){
             let post = document.createElement("a"),
                 postTitle = escapeHtml(items[i].querySelector("title").innerHTML.replace("<![CDATA[", "").replace("]]>", "")),
-                image = items[i].querySelector("enclosure[type^='image'], content[type^='image']").getAttribute("url"),
+                imageEl = items[i].querySelector("enclosure[type^='image'], content[type^='image']"),
+                image,
+                thumb;
+
+            if(imageEl){
+                image = imageEl.getAttribute("url");
                 thumb = ` style="background-image:url(${image})"`;
+            }
+            else
+                image = null;
 
             if(!checkURL(image))
                 thumb = "";
