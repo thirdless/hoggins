@@ -21,6 +21,8 @@
                     <option selected>Compact</option>
                     <option selected>Minimalist</option>
                 </select>
+                <div class="line">Auto-background: <div class="switch on"></div></div>
+                <div class="line">Custom background URL: <input type="url"/></div>
             </div>
             <div class="menu">
                 <h2>Bookmarks</h2>

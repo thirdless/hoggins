@@ -197,7 +197,7 @@ body>.background::before{
 }
 
 .settings .view .menu h2{
-    margin: 1em 0;
+    margin: 2em 0 1em;
 }
 
 .settings .view .menu select{
@@ -273,4 +273,50 @@ body>.background::before{
     width:1.25em;
     height:1.25em;
     margin-top:-.25em;
+}
+
+.settings .view .menu .line{
+    font-weight: 800;
+    margin: 2em 0;
+    display: block;
+}
+
+.settings .view .menu .line.disabled{
+    opacity: .5;
+    pointer-events: none;
+}
+
+.settings .view .menu .line input{
+    background: none;
+    border: none;
+    box-shadow: 0 0 1em var(--shadow-low);
+    padding:.5em;
+    font-family: inherit;
+    border-radius: .3em;
+    font-size:1.1em;
+}
+
+.switch{
+    height:1em;
+    width:2em;
+    padding:.25em;
+    background: black;
+    border-radius:1em;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.switch::before{
+    content: "";
+    display: block;
+    width:1em;
+    height:1em;
+    background:white;
+    border-radius: 50%;
+    transition:margin-left .3s ease;
+}
+
+.switch.on::before{
+    margin-left:1em;
 }
