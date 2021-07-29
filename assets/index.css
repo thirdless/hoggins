@@ -300,11 +300,12 @@ body>.background::before{
     height:1em;
     width:2em;
     padding:.25em;
-    background: black;
+    background: #aaa;
     border-radius:1em;
     cursor: pointer;
     display: inline-block;
     vertical-align: middle;
+    transition: background .3s ease;
 }
 
 .switch::before{
@@ -317,6 +318,14 @@ body>.background::before{
     transition:margin-left .3s ease;
 }
 
+.switch.on{
+    background: var(--black-color);
+}
+
 .switch.on::before{
     margin-left:1em;
+}
+
+.modal-div{
+    
 }

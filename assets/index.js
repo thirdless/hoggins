@@ -270,9 +270,8 @@ function getConfig(){
     ajax("/api/config.php", "GET", null, result => {
         result = JSON.parse(result);
 
-        for(let i = 0; i < result.length; i++){
+        for(let i = 0; i < result.length; i++)
             getTileType(result[i]);
-        }
     });
 }
 
@@ -287,7 +286,7 @@ function dom(){
     searchBarElement.addEventListener("click", searchBarClick);
 
     getBackground();
-    generateDefaultTiles();
+    // generateDefaultTiles();
     getConfig();
 }
 
