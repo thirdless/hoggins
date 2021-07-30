@@ -208,6 +208,7 @@ body>.background::before{
     font-size: 1.25em;
     padding:.5em;
     font-weight: 800;
+    cursor: pointer;
 }
 
 .settings .view .menu option{
@@ -326,6 +327,55 @@ body>.background::before{
     margin-left:1em;
 }
 
+.modal-overlay{
+    position:fixed;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    z-index:49;
+    background: rgba(0, 0, 0, .5);
+}
+
 .modal-div{
-    
+    position:fixed;
+    top:50%;
+    left:50%;
+    z-index:50;
+    background: var(--white-color);
+    padding: 2em;
+    border-radius:.3em;
+    min-width: 40vw;
+    max-width: 80vw;
+    min-height: 30vh;
+    max-height: 80vh;
+    transform: translate(-50%, -50%);
+}
+
+.modal-div .modal-title{
+    font-weight: 800;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+}
+
+.modal-div .bookmark-modal input, .modal-div .bookmark-modal button{
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size:1.1em;
+    display: table;
+    margin: 2em 0;
+    box-shadow:0 0 1em var(--shadow-low);
+    padding: .5em;
+    border-radius: .3em;
+    width:60%;
+}
+
+.modal-div .bookmark-modal button{
+    cursor:pointer;
+    width: initial;
+    font-weight: 800;
+    background: var(--black-color);
+    color: var(--white-color);
+    padding: .75em;
 }
