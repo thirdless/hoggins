@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+
+session_start();
+
+?><!DOCTYPE html>
 <html>
     <head>
         <title>Hoggins</title>
@@ -28,6 +32,7 @@
             </div>
         </div>
         <div class="tiles-list"></div>
+        <script src="/assets/svg.js"></script>
         <script src="/assets/index.js"></script>
         <script src="/assets/tiles.js"></script>
     </body>

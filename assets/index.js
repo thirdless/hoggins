@@ -286,7 +286,7 @@ function dom(){
     searchBarElement.addEventListener("click", searchBarClick);
 
     getBackground();
-    // generateDefaultTiles();
+    generateDefaultTiles();
     getConfig();
 }
 
