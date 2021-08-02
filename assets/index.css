@@ -57,15 +57,16 @@ body>.settings svg{
     width: 1.5em;
     height: 1.5em;
     margin-right:.5em;
+    filter: drop-shadow(0 0 .5em #111);
 }
 
 .main {
-    height: 70vh;
+    height: 90vh;
 }
 
 .main .group {
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 0;
     right: 0;
     transform: translate(0, -50%);
@@ -111,6 +112,7 @@ body>.settings svg{
     text-align: left;
     box-sizing: border-box;
     padding: 1em 0 .5em;
+    z-index:10;
 }
 
 .autocomplete .term {
@@ -446,4 +448,35 @@ body>.settings svg{
 
 .modal-div .tile-modal .option .addOption svg{
     margin: 0 .3em 0 0;
+}
+
+body.theme-smaller .main{
+    height: 60vh;
+}
+
+body.theme-smaller .main .group{
+    top: 40%;
+}
+
+body.theme-smallest .main{
+    height: 30vh;
+}
+
+body.theme-smallest .main .group{
+    top: 5%;
+    transform: none;
+}
+
+body.theme-smallest .main .group .logo{
+    display: inline-block;
+    font-size:1.5em;
+    margin-right:1em;
+}
+
+body.theme-smallest .main .group .bar{
+    display: inline-block; 
+}
+
+body.theme-smallest .main .group .bookmarks a{
+    margin: .5em 1em;
 }

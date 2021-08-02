@@ -282,6 +282,13 @@ function getConfig(){
     ajax("/api/config.php", "GET", null, result => {
         let config = JSON.parse(result);
         
+        if(config.theme){
+            if(config.theme == 1)
+                document.body.classList.add("theme-smaller");
+            else if(config.theme == 2)
+                document.body.classList.add("theme-smallest");
+        }
+
         if(config.bookmarks)
             for(let i = 0; i < config.bookmarks.length; i++)
                 generateBookmark(config.bookmarks[i][0], config.bookmarks[i][1]);
