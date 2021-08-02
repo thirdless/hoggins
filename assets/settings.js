@@ -4,17 +4,19 @@ const TILES = [
     {
         title: "Weather",
         image: "icon-sun",
-        input: "Custom location"
+        input: "Custom location",
     },
     {
         title: "RSS",
         image: "icon-rss",
-        input: "Feed URL"
+        input: "Feed URL",
+        required: true
     },
     {
         title: "Reddit",
         image: "icon-reddit",
-        input: "Subreddit name"
+        input: "Subreddit name",
+        required: true
     },
     {
         title: "Gmail",
@@ -117,9 +119,7 @@ function backgroundSwitch(e){
         value = "false";
     }
 
-    ajax(CONFIG_LINK, "POST", "type=auto-background&value=" + value, res => {
-        console.log(res);
-    });
+    ajax(CONFIG_LINK, "POST", "type=auto-background&value=" + value);
 }
 
 function switchesEvent(){
@@ -159,7 +159,6 @@ function submitBookmark(e){
     }
 
     ajax(CONFIG_LINK, "POST", "type=create-bookmark&" + payload, res => {
-        console.log(res);
         addBookmark2List(title, url);
         closeModal();
     }, res => {
@@ -184,16 +183,14 @@ function createLink(){
 function changeTheme(e){
     let value = parseInt(e.target.value);
 
-    ajax(CONFIG_LINK, "POST", "type=change-theme&value=" + value, res => {
-        console.log(res);
-    });
+    ajax(CONFIG_LINK, "POST", "type=change-theme&value=" + value);
 }
 
 function changeBackground(e){
     let value = encodeURIComponent(e.target.value);
 
-    ajax(CONFIG_LINK, "POST", "type=change-background&value=" + value, res => {
-        console.log(res);
+    ajax(CONFIG_LINK, "POST", "type=change-background&value=" + value, null, res => {
+        showNotification(res);
     });
 }
 
@@ -218,7 +215,7 @@ function bookmarksEvent(e){
     if(value == -1)
         return;
 
-    ajax(CONFIG_LINK, "POST", "type=remove-bookmark&value" + value, res => {
+    ajax(CONFIG_LINK, "POST", "type=remove-bookmark&value=" + value, res => {
         document.querySelector(".bookmarks").removeChild(target);
     });
 }
@@ -253,6 +250,14 @@ function createTile(){
     openModal("Select a tile you wish to add", element);
 }
 
+function isTileInputRequired(name){
+    for(let i = 0; i < TILES.length; i++)
+        if(TILES[i].title == name && TILES[i].required)
+            return true;
+
+    return false;
+}
+
 function submitTile(e){
     let target = e.target;
     
@@ -271,11 +276,16 @@ function submitTile(e){
         valueEl = target.querySelector("input"),
         payload = "name=" + encodeURIComponent(name);
 
-    if(valueEl)
+    if(valueEl){
         payload += "&value=" + encodeURIComponent(valueEl.value);
 
+        if(isTileInputRequired(name) && valueEl.value == ""){
+            showNotification("Input is required.");
+            return;
+        }
+    }
+
     ajax(CONFIG_LINK, "POST", "type=add-tile&" + payload, res => {
-        console.log(res);
         addTile2List(searchTilesLogo(name), name, valueEl);
         closeModal();
     }, res => {
@@ -304,7 +314,7 @@ function tilesEvent(e){
     if(value == -1)
         return;
 
-    ajax(CONFIG_LINK, "POST", "type=remove-tile&value" + value, res => {
+    ajax(CONFIG_LINK, "POST", "type=remove-tile&value=" + value, res => {
         document.querySelector(".tiles").removeChild(target);
     });
 }
@@ -354,6 +364,44 @@ function init(){
 
     document.querySelector(".bookmarks").addEventListener("click", bookmarksEvent);
     document.querySelector(".tiles").addEventListener("click", tilesEvent);
+
+    ajax("/api/config.php", "GET", null, res => {
+        let config = JSON.parse(res);
+
+        if(typeof config.theme != "undefined")
+            document.querySelector(".theme-select").value = config.theme;
+
+        if(typeof config["auto-background"] === "undefined" || config["auto-background"]){
+            document.querySelector("#background").classList.add("on");
+            document.querySelector(".custom-bg").classList.add("disabled");
+        }
+
+        if(config["background-url"])
+            document.querySelector(".background-input").value = config["background-url"];
+
+        if(config.bookmarks){
+            for(let i = 0; i < config.bookmarks.length; i++){
+                let title = config.bookmarks[i][0],
+                    url = config.bookmarks[i][1];
+
+                addBookmark2List(title, url);
+            }
+        }
+
+        if(config.tiles){
+            for(let i = 0; i < config.tiles.length; i++){
+                let name = config.tiles[i],
+                    value = null;
+
+                if(config.tiles[i] instanceof Array){
+                    value = {value: name[1]};
+                    name = name[0];
+                }
+
+                addTile2List(searchTilesLogo(name), name, value);
+            }
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", init);

@@ -41,6 +41,24 @@ body>.background::before{
     background:linear-gradient(to bottom, transparent, var(--white-color));
 }
 
+body>.settings{
+    color: var(--white-color);
+    font-size:1.2em;
+    text-decoration: inherit;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
+body>.settings svg{
+    fill: currentColor;
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right:.5em;
+}
+
 .main {
     height: 70vh;
 }

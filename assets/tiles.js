@@ -149,7 +149,7 @@ function gmailNewButton(address){
 function gmailFetchEmail(message){
     let element = document.createElement("a"),
         icon = document.createElement("svg"),
-        from = escapeHtml(gmailGetHeader(message.payload.headers, "From")),
+        from = escapeHtml(gmailGetHeader(message.payload.headers, "From")).split("&lt;")[0],
         subject = escapeHtml(gmailGetHeader(message.payload.headers, "Subject")),
         date = getShortTimePassed(gmailGetHeader(message.payload.headers, "Date")),
         delivered = gmailGetHeader(message.payload.headers, "Delivered-To"),

@@ -1,8 +1,4 @@
-<?php
-
-session_start();
-
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Hoggins</title>
@@ -15,6 +11,7 @@ session_start();
     </head>
     <body>
         <div class="background"></div>
+        <a class="settings" href="/settings"><svg><use xlink:href="#icon-settings"></use></svg></a>
         <div class="main">
             <div class="group">
                 <div class="logo">
@@ -23,12 +20,7 @@ session_start();
                 <div class="bar">
                     <input type="text" name="search" autocomplete="off" spellcheck="false"/>
                 </div>
-                <div class="bookmarks">
-                    <a class="link" href="https://google.com"><img src="/api/favicon.php?url=https://google.com">Google</a>
-                    <a class="link" href="https://google.com"><img src="/api/favicon.php?url=https://google.com">Google</a>
-                    <a class="link" href="https://facebook.com"><img src="/api/favicon.php?url=https://facebook.com">Facebook</a>
-                    <a class="link" href="https://music.youtube.com"><img src="/api/favicon.php?url=https://youtube.com">YouTube Music</a>
-                </div>
+                <div class="bookmarks"></div>
             </div>
         </div>
         <div class="tiles-list"></div>

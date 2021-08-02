@@ -244,19 +244,19 @@ function generateDefaultTiles(){
 }
 
 function getTileType(param){
-    if(param === "gmail")
+    if(param === "Gmail")
         gmailTile();
     else if(param instanceof Array){
         let func;
 
         switch(param[0]){
-            case "weather":
+            case "Weather":
                 func = weatherTile;
                 break;
-            case "rss":
+            case "RSS":
                 func = rssTile;
                 break;
-            case "reddit":
+            case "Reddit":
                 func = redditTile;
                 break;
         }
@@ -266,12 +266,37 @@ function getTileType(param){
     }
 }
 
+function generateBookmark(title, url){
+    let element = document.createElement("a"),
+        image = document.createElement("img");
+
+    element.className = "link";
+    element.href = url;
+    image.src = "/api/favicon.php?url=" + encodeURIComponent(url);
+    element.appendChild(image);
+    element.innerHTML += escapeHtml(title);
+    document.querySelector(".bookmarks").appendChild(element);
+}
+
 function getConfig(){
     ajax("/api/config.php", "GET", null, result => {
-        result = JSON.parse(result);
+        let config = JSON.parse(result);
+        
+        if(config.bookmarks)
+            for(let i = 0; i < config.bookmarks.length; i++)
+                generateBookmark(config.bookmarks[i][0], config.bookmarks[i][1]);
 
-        for(let i = 0; i < result.length; i++)
-            getTileType(result[i]);
+        if(config.tiles)
+            for(let i = 0; i < config.tiles.length; i++)
+                getTileType(config.tiles[i]);
+
+        if(typeof config["auto-background"] === "undefined" || config["auto-background"])
+            getBackground();
+        else if(config["background-url"]){
+            let element = document.querySelector("body>.background");
+            element.style.backgroundImage = "url(" + escapeHtml(config["background-url"]) + ")";
+        }
+
     });
 }
 
@@ -285,8 +310,7 @@ function dom(){
 
     searchBarElement.addEventListener("click", searchBarClick);
 
-    getBackground();
-    generateDefaultTiles();
+    // generateDefaultTiles();
     getConfig();
 }
 
