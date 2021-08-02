@@ -14,9 +14,7 @@
         <a class="settings" href="/settings"><svg><use xlink:href="#icon-settings"></use></svg></a>
         <div class="main">
             <div class="group">
-                <div class="logo">
-                    Hoggins
-                </div>
+                <div class="logo">Hoggins</div>
                 <div class="bar">
                     <input type="text" name="search" autocomplete="off" spellcheck="false"/>
                 </div>
